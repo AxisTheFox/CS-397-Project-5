@@ -20,10 +20,10 @@
         <br />
             <asp:TextBox ID="searchTextBox" runat="server"></asp:TextBox>
             &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="searchButton" runat="server" Text="Search" />
+            <asp:Button ID="searchButton" runat="server" Text="Search" OnClick="searchButton_Click" />
         </p>
 
-        <div id="movieResults">
+        <div id="movieResults" runat="server">
             
         </div>
     
