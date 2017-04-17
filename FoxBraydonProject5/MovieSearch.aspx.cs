@@ -32,18 +32,24 @@ namespace FoxBraydonProject5
             string responseContents = responseReader.ReadToEnd();
             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Result));
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(responseContents));
-            Result movies = (Result)jsonSerializer.ReadObject(stream);
-            if (movies.Response.Equals("True"))
-                displayResultsFor(movies);
+            Result resultsList = (Result)jsonSerializer.ReadObject(stream);
+            if (resultsList.Response.Equals("True"))
+                displayResultsFor(resultsList);
             else
                 displayNoMoviesFoundMessage();
         }
 
-        private void displayResultsFor(Result movies)
+        private void displayResultsFor(Result resultsList)
         {
             movieResults.InnerHtml += "<h3>Here's what we found:</h3>";
-            foreach (Movie m in movies.Movie)
-                movieResults.InnerHtml += m.Title + "<br />";
+            foreach (Movie result in resultsList.Movie)
+                if (result.Type.Equals("movie"))
+                    displayDetailsPageLinkFor(result);
+        }
+
+        private void displayDetailsPageLinkFor(Movie m)
+        {
+            movieResults.InnerHtml += m.Title + " (" + m.Year + ")" + "<br />";
         }
 
         private void displayNoMoviesFoundMessage()

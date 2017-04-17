@@ -95,6 +95,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MovieDetails.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -112,6 +113,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MovieDetails.aspx.cs">
+      <DependentUpon>MovieDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MovieDetails.aspx.designer.cs">
+      <DependentUpon>MovieDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MovieSearch.aspx.cs">
       <DependentUpon>MovieSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
