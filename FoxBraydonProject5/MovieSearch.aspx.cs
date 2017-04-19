@@ -56,7 +56,7 @@ namespace FoxBraydonProject5
 
         private void displayDetailsPageLinkFor(Movie m)
         {
-            movieResults.InnerHtml += "<a href=MovieDetails.aspx?movieId=" + m.imdbID + ">" + m.Title + "<br />";
+            movieResults.InnerHtml += "<h3><a href=MovieDetails.aspx?movieId=" + m.imdbID + ">" + m.Title + "</h3>";
             movieResults.InnerHtml += "<img src=" + m.Poster + "/></a><br/>";
         }
 
