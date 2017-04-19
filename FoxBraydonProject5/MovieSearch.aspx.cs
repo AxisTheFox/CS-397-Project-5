@@ -16,6 +16,7 @@ namespace FoxBraydonProject5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session.Clear();
             if (IsPostBack)
             {
                 movieResults.InnerHtml = "";
@@ -24,6 +25,16 @@ namespace FoxBraydonProject5
 
         protected void searchButton_Click(object sender, EventArgs e)
         {
+            Result resultsList = getSearchResultsList();
+            if (resultsList.Response.Equals("True"))
+                displayResultsFor(resultsList);
+            else
+                displayNoMoviesFoundMessage();
+        }
+
+        private Result getSearchResultsList()
+        {
+
             string userSearchText = searchTextBox.Text;
             string searchUrl = "http://www.omdbapi.com/?s=" + userSearchText;
             HttpWebRequest searchRequest = (HttpWebRequest)WebRequest.Create(searchUrl);
@@ -32,11 +43,7 @@ namespace FoxBraydonProject5
             string responseContents = responseReader.ReadToEnd();
             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Result));
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(responseContents));
-            Result resultsList = (Result)jsonSerializer.ReadObject(stream);
-            if (resultsList.Response.Equals("True"))
-                displayResultsFor(resultsList);
-            else
-                displayNoMoviesFoundMessage();
+            return (Result)jsonSerializer.ReadObject(stream);
         }
 
         private void displayResultsFor(Result resultsList)
@@ -49,7 +56,8 @@ namespace FoxBraydonProject5
 
         private void displayDetailsPageLinkFor(Movie m)
         {
-            movieResults.InnerHtml += m.Title + " (" + m.Year + ")" + "<br />";
+            movieResults.InnerHtml += "<a href=MovieDetails.aspx?movieId=" + m.imdbID + ">" + m.Title + "<br />";
+            movieResults.InnerHtml += "<img src=" + m.Poster + "/></a><br/>";
         }
 
         private void displayNoMoviesFoundMessage()
