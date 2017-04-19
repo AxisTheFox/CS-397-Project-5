@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -22,12 +26,35 @@ namespace FoxBraydonProject5
 
         private bool noMovieSelected()
         {
-            return Request.QueryString == null;
+            return Request.QueryString["movieId"] == null;
         }
 
         private void ShowSelectedMovieDetails()
         {
-            movieId = Request.QueryString.ToString();
+            movieId = Request.QueryString["movieId"].ToString();
+            SelectedMovie thisMovie = getSelectedMovieInfo();
+
+            Title = thisMovie.Title;
+
+            movieTitle.Text = thisMovie.Title;
+            genre.Text = thisMovie.Genre;
+            releaseDate.Text = thisMovie.Released;
+            runtime.Text = thisMovie.Runtime;
+            moviePoster.ImageUrl = thisMovie.Poster;
+            plot.Text = thisMovie.Plot;
+            rating.Text = thisMovie.Rated;
+        }
+
+        private SelectedMovie getSelectedMovieInfo()
+        {
+            string movieUrl = "http://www.omdbapi.com/?i=" + movieId;
+            HttpWebRequest searchRequest = (HttpWebRequest)WebRequest.Create(movieUrl);
+            HttpWebResponse response = (HttpWebResponse)searchRequest.GetResponse();
+            StreamReader responseReader = new StreamReader(response.GetResponseStream());
+            string responseContents = responseReader.ReadToEnd();
+            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(SelectedMovie));
+            MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(responseContents));
+            return (SelectedMovie)jsonSerializer.ReadObject(stream);
         }
     }
 
