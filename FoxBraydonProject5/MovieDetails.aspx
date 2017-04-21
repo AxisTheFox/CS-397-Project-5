@@ -15,6 +15,8 @@
             <h1>Movie Search</h1>
         </div>
 
+        <p><a href='javascript:history.go(-1)'>Back to search</a></p>
+
         <div id="movieInfo" runat="server">
             <h2><asp:Label ID="movieTitle" runat="server"></asp:Label></h2>
             <p>
