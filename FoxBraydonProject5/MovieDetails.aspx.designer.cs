@@ -67,13 +67,13 @@ namespace FoxBraydonProject5 {
         protected global::System.Web.UI.WebControls.Label runtime;
         
         /// <summary>
-        /// rating control.
+        /// rated control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label rating;
+        protected global::System.Web.UI.WebControls.Label rated;
         
         /// <summary>
         /// moviePoster control.
@@ -92,5 +92,23 @@ namespace FoxBraydonProject5 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label plot;
+        
+        /// <summary>
+        /// MetacriticRating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MetacriticRating;
+        
+        /// <summary>
+        /// RottenTomatoesRating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RottenTomatoesRating;
     }
 }

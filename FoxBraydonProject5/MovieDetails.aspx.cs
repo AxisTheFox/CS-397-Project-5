@@ -42,7 +42,8 @@ namespace FoxBraydonProject5
             runtime.Text = thisMovie.Runtime;
             moviePoster.ImageUrl = thisMovie.Poster;
             plot.Text = thisMovie.Plot;
-            rating.Text = thisMovie.Rated;
+            rated.Text = thisMovie.Rated;
+            ShowMovieRatings(thisMovie);
         }
 
         private SelectedMovie getSelectedMovieInfo()
@@ -55,6 +56,30 @@ namespace FoxBraydonProject5
             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(SelectedMovie));
             MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(responseContents));
             return (SelectedMovie)jsonSerializer.ReadObject(stream);
+        }
+
+        private void ShowMovieRatings(SelectedMovie m)
+        {
+            ShowMetacriticRating(m);
+            ShowRottenTomatoesRating(m);
+        }
+
+        private void ShowMetacriticRating(SelectedMovie m)
+        {
+            foreach (Rating r in m.Ratings)
+            {
+                if (r.Source.Equals("Metacritic"))
+                    MetacriticRating.Text = "Metacritic: " + r.Value;
+            }
+        }
+
+        private void ShowRottenTomatoesRating(SelectedMovie m)
+        {
+            foreach (Rating r in m.Ratings)
+            {
+                if (r.Source.Equals("Rotten Tomatoes"))
+                    RottenTomatoesRating.Text = "Rotten Tomatoes: " + r.Value;
+            }
         }
     }
 
